@@ -61,9 +61,7 @@ public class EspetaculosController {
 
 	@Post("/espetaculos")
 	public void adiciona(Espetaculo espetaculo) {
-		// aqui eh onde fazemos as varias validacoes
-		// se nao tiver nome, avisa o usuario
-		// se nao tiver descricao, avisa o usuario
+		
 		if (Strings.isNullOrEmpty(espetaculo.getNome())) {
 			validator.add(new SimpleMessage("", "Nome do espetáculo não pode estar em branco"));
 		}
