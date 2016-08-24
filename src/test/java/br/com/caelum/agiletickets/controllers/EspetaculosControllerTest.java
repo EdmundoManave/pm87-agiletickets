@@ -1,16 +1,23 @@
 package br.com.caelum.agiletickets.controllers;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
+import javax.inject.Inject;
+import javax.persistence.EntityManager;
+
+import org.joda.time.DateTime;
+import org.joda.time.LocalDateTime;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
-
+import org.joda.time.LocalTime;
 import br.com.caelum.agiletickets.domain.Agenda;
 import br.com.caelum.agiletickets.domain.DiretorioDeEstabelecimentos;
 import br.com.caelum.agiletickets.models.Espetaculo;
+import br.com.caelum.agiletickets.models.Periodicidade;
 import br.com.caelum.agiletickets.models.Sessao;
 import br.com.caelum.agiletickets.models.TipoDeEspetaculo;
 import br.com.caelum.vraptor.Result;
@@ -35,6 +42,8 @@ public class EspetaculosControllerTest {
 	
 	private EspetaculosController controller;
 
+	
+	
 	@Before
 	public void setUp() throws Exception {
 		MockitoAnnotations.initMocks(this);
@@ -119,4 +128,7 @@ public class EspetaculosControllerTest {
 		assertThat(sessao.getIngressosDisponiveis(), is(2));
 	}
 
+	
+	
+	
 }

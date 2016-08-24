@@ -82,6 +82,8 @@ public class EspetaculosController {
 		result.include("espetaculo", espetaculo);
 	}
 
+	
+	
 	@Post("/espetaculo/{espetaculoId}/sessoes")
 	public void cadastraSessoes(Long espetaculoId, LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		Espetaculo espetaculo = carregaEspetaculo(espetaculoId);

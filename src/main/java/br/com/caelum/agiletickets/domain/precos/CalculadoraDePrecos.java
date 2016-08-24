@@ -9,16 +9,18 @@ public class CalculadoraDePrecos {
 
 	public static BigDecimal calcula(Sessao sessao, Integer quantidade) {
 		BigDecimal preco;
+		int totaldisponivel=sessao.getTotalIngressos()-sessao.getIngressosReservados();
+		double totalingresso=sessao.getTotalIngressos().doubleValue();
 		
-		if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.CINEMA) || sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.SHOW)) {
+		if(verificarTipoEspectaculo(sessao,TipoDeEspetaculo.CINEMA ) || verificarTipoEspectaculo(sessao,TipoDeEspetaculo.SHOW )) {
 			//quando estiver acabando os ingressos... 
-			if((sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue() <= 0.05) { 
+			if(proporcaoIngresso(totaldisponivel, totalingresso)) { 
 				preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 			} else {
 				preco = sessao.getPreco();
 			}
-		} else if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.BALLET)) {
-			if((sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue() <= 0.50) { 
+		} else if(verificarTipoEspectaculo(sessao,TipoDeEspetaculo.BALLET )) {
+			if((totaldisponivel) / totalingresso <= 0.50) { 
 				preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
 			} else {
 				preco = sessao.getPreco();
@@ -27,8 +29,8 @@ public class CalculadoraDePrecos {
 			if(sessao.getDuracaoEmMinutos() > 60){
 				preco = preco.add(sessao.getPreco().multiply(BigDecimal.valueOf(0.10)));
 			}
-		} else if(sessao.getEspetaculo().getTipo().equals(TipoDeEspetaculo.ORQUESTRA)) {
-			if((sessao.getTotalIngressos() - sessao.getIngressosReservados()) / sessao.getTotalIngressos().doubleValue() <= 0.50) { 
+		} else if(verificarTipoEspectaculo(sessao,TipoDeEspetaculo.ORQUESTRA )) {
+			if((totaldisponivel) / totalingresso <= 0.50) { 
 				preco = sessao.getPreco().add(sessao.getPreco().multiply(BigDecimal.valueOf(0.20)));
 			} else {
 				preco = sessao.getPreco();
@@ -43,6 +45,16 @@ public class CalculadoraDePrecos {
 		} 
 
 		return preco.multiply(BigDecimal.valueOf(quantidade));
+	}
+
+	private static boolean verificarTipoEspectaculo(Sessao sessao,TipoDeEspetaculo tipoDeEspetaculo) {
+		return sessao.getEspetaculo().getTipo().equals(tipoDeEspetaculo);
+	
+	
+	}
+
+	private static boolean proporcaoIngresso(int totaldisponivel, double totalingresso) {
+		return (totaldisponivel) / totalingresso <= 0.05;
 	}
 
 }

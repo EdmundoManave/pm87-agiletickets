@@ -2,9 +2,12 @@ package br.com.caelum.agiletickets.models;
 
 import static com.google.common.collect.Lists.newArrayList;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -16,6 +19,8 @@ import javax.persistence.OneToMany;
 import org.joda.time.LocalDate;
 import org.joda.time.LocalTime;
 
+import br.com.caelum.agiletickets.persistencia.JPAEspetaculoDao;
+
 @Entity
 public class Espetaculo {
 
@@ -26,6 +31,9 @@ public class Espetaculo {
 	private String nome;
 
 	private String descricao;
+	
+/*	@Inject
+	private EntityManager manager;*/
 
 	@Enumerated(EnumType.STRING)
 	private TipoDeEspetaculo tipo;
@@ -98,7 +106,26 @@ public class Espetaculo {
      */
 	public List<Sessao> criaSessoes(LocalDate inicio, LocalDate fim, LocalTime horario, Periodicidade periodicidade) {
 		// ALUNO: Não apague esse metodo. Esse sim será usado no futuro! ;)
-		return null;
+		Sessao sessao= new Sessao();
+		List<Sessao> lista = new ArrayList<Sessao>();
+		sessao.setInicio(inicio.toDateTime(horario));
+		//sessao.set
+	   lista.add(sessao);
+		
+	//JPAEspetaculoDao dao = new JPAEspetaculoDao(manager, null);
+		
+		
+		
+		return lista;
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 	
 	public boolean Vagas(int qtd, int min)
